@@ -2,6 +2,21 @@ import os
 from pathlib import Path
 import openpyxl
 
+def new_path(file_name):
+    fake_path = 'D:/fake'
+    fake_path = Path(fake_path)
+    file_name_path = fake_path/file_name
+    file_name = file_name_path.stem
+    file_suffix = file_name_path.suffix
+    len_file = len(file_name)
+    if (file_name[len_file - 1] == ')') and (file_name[len_file - 3] == '(') and file_name[len_file - 2].isnumeric():
+        new_number = int(file_name[len_file - 2]) + 1
+        new_name = file_name[0:len_file - 2] + str(new_number) + ')' + file_suffix
+        return new_name
+    else:
+        new_name = file_name + '(1)' + file_suffix
+        return new_name
+
 def rename_files(filename,ori_row,ori_col,new_row,new_col,path_to_folder):
     initial_path = Path(path_to_folder)
     path_file_list = os.listdir(path_to_folder)
